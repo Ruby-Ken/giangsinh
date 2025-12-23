@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noel Rực Rỡ 2025</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@600&display=swap');
+
+        body {
+            margin: 0;
+            height: 100vh;
+            background: #050510; /* Nền tối để nổi chữ */
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Quicksand', sans-serif;
+            color: white;
+        }
+
+        /* Nền bầu trời sao lấp lánh */
+        .sky {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+            z-index: -1;
+        }
+
+        /* Ông già Noel bay */
+        .santa-fly {
+            position: absolute;
+            font-size: 50px;
+            top: 15%;
+            left: -100px;
+            z-index: 1;
+            animation: flyAround 20s linear infinite;
+        }
+
+        @keyframes flyAround {
+            0% { left: -100px; transform: scaleX(1); }
+            48% { left: 100vw; transform: scaleX(1); }
+            50% { left: 100vw; transform: scaleX(-1); }
+            98% { left: -100px; transform: scaleX(-1); }
+            100% { left: -100px; transform: scaleX(1); }
+        }
+
+        /* Cây thông cố định */
+        .decor {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 50px;
+            box-sizing: border-box;
+            font-size: 80px;
+            z-index: 1;
+            opacity: 0.8;
+        }
+
+        /* KHUNG CHỮ CHÍNH - Đảm bảo luôn hiện */
+        .content-card {
+            position: relative;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            border-radius: 30px;
+            border: 3px solid #ffd700;
+            text-align: center;
+            max-width: 600px;
+            width: 85%;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .main-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(40px, 10vw, 80px);
+            color: #ffd700;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+        }
+
+        /* Lời chúc */
+        .wish-text {
+            font-size: clamp(18px, 4.5vw, 24px);
+            line-height: 1.6;
+            color: #ffffff;
+            min-height: 150px;
+            white-space: pre-line; /* Giữ xuống hàng */
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            background: #ffd700;
+            margin-left: 5px;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* Tuyết rơi */
+        .snow-particle {
+            position: fixed;
+            top: -10px;
+            color: white;
+            z-index: 50;
+            pointer-events: none;
+            animation: fallAnimation linear forwards;
+        }
+
+        @keyframes fallAnimation {
+            to { transform: translateY(110vh); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sky"></div>
+    <div class="santa-fly">🎅🛷🦌</div>
+    
+    <div class="decor">
+        <span>🎄</span>
+        <span>🎄</span>
+    </div>
+
+    <div class="content-card">
+        <div class="main-title">Merry Christmas</div>
+        <div class="wish-text" id="wish-box"></div><span class="cursor">|</span>
+    </div>
+
+    <script>
+        const message = "Chúc cậu có một ngày lễ Giáng Sinh an lành, vui vẻ và hạnh phúc\nbên người mình yêu thương.\nvà những phút giây tuyệt vời bên những người thân yêu.\nMong rằng những điều tốt đẹp và may mắn sẽ đến vs cậu!";
+        
+        let charIndex = 0;
+        const displayBox = document.getElementById('wish-box');
+
+        function startTyping() {
+            if (charIndex < message.length) {
+                displayBox.textContent += message.charAt(charIndex);
+                charIndex++;
+                setTimeout(startTyping, 50);
+            }
+        }
+
+        function makeSnow() {
+            const snow = document.createElement('div');
+            snow.className = 'snow-particle';
+            snow.innerHTML = '❄';
+            snow.style.left = Math.random() * 100 + 'vw';
+            snow.style.fontSize = Math.random() * 10 + 10 + 'px';
+            snow.style.opacity = Math.random();
+            
+            const duration = Math.random() * 3 + 5;
+            snow.style.animationDuration = duration + 's';
+            
+            document.body.appendChild(snow);
+            setTimeout(() => snow.remove(), duration * 1000);
+        }
+
+        // CHẠY NGAY KHI TRANG LOAD
+        window.addEventListener('DOMContentLoaded', () => {
+            setInterval(makeSnow, 200);
+            startTyping(); // Chạy ngay lập tức không chờ đợi
+        });
+    </script>
+</body>
+</html>
